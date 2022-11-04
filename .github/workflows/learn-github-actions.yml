@@ -5,5 +5,11 @@ jobs:
   check-bats-version:
     runs-on: ubuntu-latest
     steps:
-      - name: Test debug msg
-        run: echo "::debug::this is the message"
+      - name: Disable workflow commands
+        run: |
+          echo '::warning:: This is a warning message, to demonstrate that commands are being processed.'
+          stopMarker=$(uuidgen)
+          echo "::stop-commands::$stopMarker"
+          echo '::warning:: This will NOT be rendered as a warning, because stop-commands has been invoked.'
+          echo "::$stopMarker::"
+          echo '::warning:: This is a warning again, because stop-commands has been turned off.'
