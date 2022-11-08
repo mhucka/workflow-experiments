@@ -11,4 +11,4 @@ jobs:
     steps:
       - name: Get GitHub pages URL
         run: |
-          curl -H "Accept: application/vnd.github+json" -H \"Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}\" https://api.github.com/repos/${{ github.repository }}/pages"
+          curl -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/pages
