@@ -28,7 +28,7 @@ jobs:
 
       - name: Proceed if have a GitHub pages URL
         id: step_3
-        if: startsWith(env.pages_url, 'http')
+        if: startsWith(env.pages_url, 'null') != true
         run: |
           echo ${{ env.pages_url }}
           
