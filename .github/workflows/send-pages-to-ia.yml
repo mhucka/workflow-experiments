@@ -18,15 +18,8 @@ jobs:
         run: |
           echo pages_url=$(curl -s -H 'Accept: application/vnd.github+json' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/caltechlibrary/foliage/pages | jq '.html_url') >> $GITHUB_ENV
 
-      - name: TEST
-        # This stores the URL in env.PAGES_URL. The value will be "null" if
-        # no pages URL is returned for any reason.
-        id: step_2
-        run: |
-          echo ${{ env.pages_url }}
-
       - name: Quit if GitHub pages URL is null
-        id: step_3
+        id: step_2
         if: ${{ env.pages_url }} == null
         uses: actions/github-script@v6.3.3
         with:
