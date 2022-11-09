@@ -8,7 +8,7 @@ on:
 # ${{ github.repository }}
 
 jobs:
-  get_pages_url:
+  job1:
     runs-on: ubuntu-latest
     steps:
       - name: Get GitHub pages URL
@@ -25,9 +25,9 @@ jobs:
           script: |
             core.setFailed('Could not retrieve GitHub pages URL.')        
 
-  archive_pages_url:
+  job2:
     runs-on: ubuntu-latest
-    needs: get-pages-url
+    needs: job1
     continue-on-error: false
     steps:
       - name: Echo GitHub pages URL
