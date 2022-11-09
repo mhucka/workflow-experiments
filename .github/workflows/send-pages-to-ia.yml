@@ -20,7 +20,7 @@ jobs:
 
       - name: Quit if GitHub pages URL is null
         id: step_2
-        if: ${{ env.pages_url }} == null
+        if: startsWith(env.pages_url, 'null')
         uses: actions/github-script@v6.3.3
         with:
           script: |
