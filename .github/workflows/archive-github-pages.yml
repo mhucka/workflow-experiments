@@ -3,14 +3,6 @@
 # - provide a way to control saveerrors, saveoutlinks, etc.
 
 name: "Waystation – Wayback site archiving automation"
-description: "Archive this repository's GitHub Pages in the Wayback Machine"
-
-inputs:
-  dry_run:
-    type: boolean
-    description: 'Print what would be done, but do not actually do it.'
-    default: false
-    required: false
 
 on:
   push:
