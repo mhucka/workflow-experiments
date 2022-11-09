@@ -6,7 +6,6 @@ on:
       - main
 
 # ${{ github.repository }}
-#           echo "PAGES_URL=$(curl -s -H 'Accept: application/vnd.github+json' -H \"Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}\" https://api.github.com/repos/caltechlibrary/foliage/pages | jq '.html_url')" >> $GITHUB_OUTPUT
 
 jobs:
   deploy:
@@ -15,7 +14,7 @@ jobs:
       - name: Get GitHub pages URL
         id: step_1
         run: |
-          echo PAGES_URL=$(curl -s -H 'Accept: application/vnd.github+json' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/caltechlibrary/foliage/pages | jq '.html_url') >> $GITHUB_ENV
+          echo PAGES_URL=$(curl -s -H 'Accept: application/vnd.github+json' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/pages | jq '.html_url') >> $GITHUB_ENV
       - name: Test the env var
         id: step_3
         run: echo ${{ env.PAGES_URL }}
