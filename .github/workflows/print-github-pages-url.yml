@@ -14,11 +14,9 @@ jobs:
       - name: Get GitHub pages URL
         id: step_1
         run: |
-          echo "PAGES_URL=$(curl -s --fail -H 'Accept: application/vnd.github+json' -H \"Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}\" https://api.github.com/repos/caltechlibrary/foliage/pages | jq '.html_url')" >> $GITHUB_OUTPUT
+          echo "PAGES_URL=$(curl -s -H 'Accept: application/vnd.github+json' -H \"Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}\" https://api.github.com/repos/caltechlibrary/foliage/pages | jq '.html_url')" >> $GITHUB_OUTPUT
 
       - name: Check the value was stored
         id: step_2
-        env:
-          GITHUB_TOKEN: ${{ secrets.token }}
         run: |
           echo "${{ steps.step_1.outputs.PAGES_URL }}"
