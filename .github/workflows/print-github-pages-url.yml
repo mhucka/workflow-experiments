@@ -15,8 +15,6 @@ jobs:
         id: step_1
         run: |
           echo "PAGES_URL=$(curl -s -H 'Accept: application/vnd.github+json' -H \"Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}\" https://api.github.com/repos/caltechlibrary/foliage/pages | jq '.html_url')" >> $GITHUB_OUTPUT
-
       - name: Check the value was stored
         id: step_2
-        run: |
-          echo "${{ env.PAGES_URL }}"
+        run: echo "${{ steps.step_1.outputs.PAGES_URL }}"
