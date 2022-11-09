@@ -16,12 +16,12 @@ jobs:
         # no pages URL is returned for any reason.
         id: step_1
         run: |
-          echo PAGES_URL=$(curl -s -H 'Accept: application/vnd.github+json' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/caltechlibrary/foliage/pages | jq '.html_url') > $GITHUB_ENV
-          echo ${{ env.PAGES_URL }}
+          echo pages_url=$(curl -s -H 'Accept: application/vnd.github+json' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/caltechlibrary/foliage/pages | jq '.html_url') >> $GITHUB_ENV
+          echo ${{ env.pages_url }}
 
       - name: Quit if GitHub pages URL is null
         id: step_2
-        if: ${{ env.PAGES_URL }} == null
+        if: ${{ env.pages_url }} == null
         uses: actions/github-script@v6.3.3
         with:
           script: |
@@ -33,4 +33,4 @@ jobs:
     continue-on-error: false
     steps:
       - name: Echo GitHub pages URL
-        run: echo ${{ env.PAGES_URL }}
+        run: echo ${{ env.pages_url }}
