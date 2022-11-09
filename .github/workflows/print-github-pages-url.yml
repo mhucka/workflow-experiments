@@ -9,20 +9,16 @@ on:
 
 jobs:
   job1:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Get GitHub pages URL
         id: step_1
         run: |
           echo PAGES_URL=$(curl -s -H 'Accept: application/vnd.github+json' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/pages | jq '.html_url') >> $GITHUB_ENV
-      - name: Quit if GitHub pages is null
+
+      - name: Quit if GitHub pages URL is null
         if: ${{ env.PAGES_URL }} == null
         uses: actions/github-script@v6.3.3
         with:
           script: |
             core.setFailed('Could not retrieve GitHub pages URL.')        
-
-
-        # run: |
-        #   echo "::error ::Could not retrieve GitHub pages URL"
-        #   exit 1

@@ -1,0 +1,34 @@
+name: Send the GitHub pages URL to the Wayback Machine
+
+on:
+  push:
+    branches:
+      - main
+
+# ${{ github.repository }}
+
+jobs:
+  get-pages-url:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get GitHub pages URL
+        # This stores the URL in env.PAGES_URL. The value will be "null" if
+        # no pages URL is returned for any reason.
+        id: step_1
+        run: |
+          echo PAGES_URL=$(curl -s -H 'Accept: application/vnd.github+json' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/caltechlibrary/foliage/pages | jq '.html_url') >> $GITHUB_ENV
+
+      - name: Quit if GitHub pages URL is null
+        if: ${{ env.PAGES_URL }} == null
+        uses: actions/github-script@v6.3.3
+        with:
+          script: |
+            core.setFailed('Could not retrieve GitHub pages URL.')        
+
+  archive-pages-url:
+    runs-on: ubuntu-latest
+    needs: get-pages-url
+    continue-on-error: false
+    steps:
+      - name: Echo GitHub pages URL
+        run: echo ${{ env.PAGES_URL }}
