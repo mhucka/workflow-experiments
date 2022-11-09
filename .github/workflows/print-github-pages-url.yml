@@ -18,4 +18,4 @@ jobs:
       - name: Check the value was stored
         id: step_2
         run: |
-          echo "${{ env.PAGES_URL }}"
+          echo "${{ steps.step_1.outputs.PAGES_URL }}"
