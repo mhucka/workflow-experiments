@@ -46,6 +46,6 @@ jobs:
       - name: Summarize the results of the run
         id: step_4
         run: |
-          echo \#\# GitHub Pages archived in the Wayback Machine
+          echo \#\# GitHub Pages archived in the Wayback Machine >> $GITHUB_STEP_SUMMARY
           echo GitHub repository for this action: \`${{ github.repository }}\` >> $GITHUB_STEP_SUMMARY
           echo GitHub Pages URL for the repository: ${{ env.pages_url }} >> $GITHUB_STEP_SUMMARY
