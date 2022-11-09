@@ -26,10 +26,18 @@ jobs:
           script: |
             core.setFailed('Could not retrieve GitHub pages URL.')        
 
-  job2:
-    runs-on: ubuntu-latest
-    needs: job1
-    continue-on-error: false
-    steps:
-      - name: Echo GitHub pages URL
-        run: echo ${{ env.pages_url }}
+      - name: Proceed if have a GitHub pages URL
+        id: step_3
+        if: startsWith(env.pages_url, 'http')
+        run: |
+          echo ${{ env.pages_url }}
+          
+
+
+  # job2:
+  #   runs-on: ubuntu-latest
+  #   needs: job1
+  #   continue-on-error: false
+  #   steps:
+  #     - name: Echo GitHub pages URL
+  #       run: echo ${{ env.pages_url }}
