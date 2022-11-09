@@ -19,10 +19,6 @@ jobs:
         id: step_3
         run: echo ${{ env.PAGES_URL }}
 
-      - name: Test for null
-        if: ${{ env.PAGES_URL }} != null
-        run: echo Not null
-
-      - name: Test for null
+      - name: Stop if null
         if: ${{ env.PAGES_URL }} == null
-        run: echo fooo
+        run: echo "::error Could not retrieve GitHub pages URL"
