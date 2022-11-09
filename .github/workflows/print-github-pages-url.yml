@@ -8,7 +8,7 @@ on:
 # ${{ github.repository }}
 
 jobs:
-  deploy:
+  job1:
     runs-on: ubuntu-20.04
     steps:
       - name: Get GitHub pages URL
@@ -18,3 +18,11 @@ jobs:
       - name: Test the env var
         id: step_3
         run: echo ${{ env.PAGES_URL }}
+
+      - name: Test for null
+        if: ${{ env.PAGES_URL }} != null
+        run: echo Not null
+
+      - name: Test for null
+        if: ${{ env.PAGES_URL }} == null
+        run: echo fooo
