@@ -1,4 +1,4 @@
-name: Should the github pages url
+name: Show the github pages url
 
 on:
   push:
@@ -12,5 +12,10 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Get GitHub pages URL
+        id: step_1
         run: |
-          curl -s -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/caltechlibrary/foliage/pages | jq '.html_url'
+          echo "PAGES_URL=$(curl -s --fail -H 'Accept: application/vnd.github+json' -H \"Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}\" https://api.github.com/repos/caltechlibrary/foliage/pages | jq '.html_url')" >> $GITHUB_OUTPUT
+      - name: Check the value was stored
+        id: step_2
+        run: |
+          echo "${{ env.PAGES_URL }}"
