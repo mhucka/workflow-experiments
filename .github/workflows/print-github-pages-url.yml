@@ -15,10 +15,6 @@ jobs:
         id: step_1
         run: |
           echo PAGES_URL=$(curl -s -H 'Accept: application/vnd.github+json' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/pages | jq '.html_url') >> $GITHUB_ENV
-      - name: Test the env var
-        id: step_3
-        run: echo ${{ env.PAGES_URL }}
-
       - name: Stop if null
         if: ${{ env.PAGES_URL }} == null
-        run: echo "::error Could not retrieve GitHub pages URL"
+        run: echo "::error ::Could not retrieve GitHub pages URL"
