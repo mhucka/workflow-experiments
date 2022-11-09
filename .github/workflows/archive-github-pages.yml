@@ -46,4 +46,6 @@ jobs:
       - name: Print a summary of the results to the workflow panel
         id: step_4
         run: |
-          echo "::notice title=Finished::Pages URL = ${{ env.pages_url }}"
+          echo ::group::Finished
+          echo Pages URL = ${{ env.pages_url }}
+          echo ::endgroup::
