@@ -1,3 +1,9 @@
+# Still to do
+# - print the pages_url to the github actions panel
+# - print wayback_url
+# - provide a dry-run option
+# - provide a way to control saveerrors, saveoutlinks, etc.
+
 name: Send the GitHub pages URL to the Wayback Machine
 
 on:
@@ -27,12 +33,17 @@ jobs:
           script: |
             core.setFailed('Could not retrieve GitHub pages URL.')        
 
-      - name: Proceed if have a GitHub pages URL
-        id: step_3
-        if: startsWith(env.pages_url, 'null') != true
-        uses: JamieMagee/wayback@v1.3.19
-        with:
-          url: ${{ env.pages_url }}
-          saveErrors: false
-          saveOutlinks: true
-          saveScreenshot: true
+      # - name: Proceed if have a GitHub pages URL
+      #   id: step_3
+      #   if: startsWith(env.pages_url, 'null') != true
+      #   uses: JamieMagee/wayback@v1.3.19
+      #   with:
+      #     url: ${{ env.pages_url }}
+      #     saveErrors: false
+      #     saveOutlinks: true
+      #     saveScreenshot: true
+
+      - name: Print a summary of the results to the workflow panel
+        id: step_4
+        run: |
+          echo "::notice title=Finished::Pages URL = ${{ env.pages_url }}"
