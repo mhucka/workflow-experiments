@@ -14,7 +14,7 @@ on:
 # ${{ github.repository }}
 
 jobs:
-  do-steps:
+  Actions:
     runs-on: ubuntu-latest
     steps:
       - name: Get GitHub pages URL
