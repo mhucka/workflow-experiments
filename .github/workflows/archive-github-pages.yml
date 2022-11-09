@@ -43,9 +43,8 @@ jobs:
       #     saveOutlinks: true
       #     saveScreenshot: true
 
-      - name: Print a summary of the results to the workflow panel
+      - name: Summarize the results of the run
         id: step_4
         run: |
-          echo ::group::Finished
-          echo Pages URL = ${{ env.pages_url }}
-          echo ::endgroup::
+          echo GitHub repository: ${{ github.repository }} >> $GITHUB_STEP_SUMMARY
+          echo GitHub Pages URL for the repository: ${{ env.pages_url }} >> $GITHUB_STEP_SUMMARY
