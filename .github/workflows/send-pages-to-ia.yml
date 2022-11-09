@@ -11,6 +11,13 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     steps:
+      - name: test pages URL
+        # This stores the URL in env.PAGES_URL. The value will be "null" if
+        # no pages URL is returned for any reason.
+        id: step_0
+        run: |
+          curl -s -H 'Accept: application/vnd.github+json' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/caltechlibrary/foliage/pages | jq '.html_url'
+
       - name: Get GitHub pages URL
         # This stores the URL in env.PAGES_URL. The value will be "null" if
         # no pages URL is returned for any reason.
