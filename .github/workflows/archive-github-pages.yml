@@ -30,5 +30,9 @@ jobs:
       - name: Proceed if have a GitHub pages URL
         id: step_3
         if: startsWith(env.pages_url, 'null') != true
-        run: |
-          echo ${{ env.pages_url }}
+        uses: JamieMagee/wayback@v1.3.19
+        with:
+          url: ${{ env.pages_url }}
+          saveErrors: false
+          saveOutlinks: true
+          saveScreenshot: true
