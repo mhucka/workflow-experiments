@@ -8,12 +8,13 @@ on:
 # ${{ github.repository }}
 
 jobs:
-  job1:
+  do-steps:
     runs-on: ubuntu-latest
     steps:
       - name: Get GitHub pages URL
         # This stores the URL in env.PAGES_URL. The value will be "null" if
-        # no pages URL is returned for any reason.
+        # no pages URL is returned for any reason. Note: the URL string will
+        # have double quotes around it.
         id: step_1
         run: |
           echo pages_url=$(curl -s -H 'Accept: application/vnd.github+json' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/caltechlibrary/foliage/pages | jq '.html_url') >> $GITHUB_ENV
@@ -31,13 +32,3 @@ jobs:
         if: startsWith(env.pages_url, 'null') != true
         run: |
           echo ${{ env.pages_url }}
-          
-
-
-  # job2:
-  #   runs-on: ubuntu-latest
-  #   needs: job1
-  #   continue-on-error: false
-  #   steps:
-  #     - name: Echo GitHub pages URL
-  #       run: echo ${{ env.pages_url }}
