@@ -1,4 +1,5 @@
 # Still to do
+# - provide option for branch
 # - provide a dry-run option
 # - provide way to override default event
 # - provide a way to control saveerrors, saveoutlinks, etc.
@@ -39,7 +40,7 @@ jobs:
           script: |
             core.setFailed('Could not retrieve GitHub pages URL.')        
 
-      # - name: Proceed if have a GitHub pages URL
+      # - name: Proceed if this is not a dry run
       #   id: s3
       #   if: startsWith(env.pages_url, 'null') != true
       #   uses: JamieMagee/wayback@v1.3.19
@@ -49,8 +50,15 @@ jobs:
       #     saveOutlinks: true
       #     saveScreenshot: true
 
-      - name: Summarize the results of the run
+      - name: Print a message if this is a dry run
         id: s4
+        if: github.event.inputs.dry_run == 'true'
+        with:
+          run: |
+            echo "::notice::Sending ${{ env.pages_url }} to the Internet Archive"
+
+      - name: Summarize the results of the run
+        id: s5
         run: |
           echo \#\# Results of sending the GitHub Pages to the Wayback Machine >> $GITHUB_STEP_SUMMARY
           echo Date and time of execution: $(date "+%F %T (%Z)")               >> $GITHUB_STEP_SUMMARY
