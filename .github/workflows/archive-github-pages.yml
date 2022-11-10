@@ -29,8 +29,13 @@ jobs:
         # no pages URL is returned for any reason. Note: the URL string will
         # have double quotes around it.
         id: s1
-        run: |
-          echo pages_url=$(curl -s -H 'Accept: application/vnd.github+json' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/caltechlibrary/foliage/pages | jq '.html_url' | tr -d '"') >> $GITHUB_ENV
+        run: >
+          echo pages_url=$(
+            curl -s -H 'Accept: application/vnd.github+json'
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}"
+            https://api.github.com/repos/caltechlibrary/foliage/pages
+            | jq '.html_url' | tr -d '"'
+          ) >> $GITHUB_ENV
 
       - name: Quit if GitHub pages URL is null
         id: s2
@@ -50,14 +55,11 @@ jobs:
       #     saveOutlinks: true
       #     saveScreenshot: true
 
-      - name: Print a message if this is a dry run
+      - name: Print a message if this is only a dry run
         id: s4
-        # if: ${{ github.event.inputs.dry_run == 'true' }}
+        if: ${{ github.event.inputs.dry_run == 'true' }}
         run: |
-          echo foo
-          echo ${{ github.event.inputs.dry_run }}
-          echo bar
-          # echo "::notice::Sending ${{ env.pages_url }} to the Internet Archive"
+          echo "::notice::Sending ${{ env.pages_url }} to the Internet Archive"
 
       - name: Summarize the results of the run
         id: s5
