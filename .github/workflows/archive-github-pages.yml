@@ -52,7 +52,7 @@ jobs:
 
       - name: Print a message if this is a dry run
         id: s4
-        if: ${{ github.workflow_dispatch.inputs.dry_run == 'true' }}
+        if: ${{ github.event.inputs.dry_run == 'true' }}
         run: |
           echo "::notice::Sending ${{ env.pages_url }} to the Internet Archive"
 
