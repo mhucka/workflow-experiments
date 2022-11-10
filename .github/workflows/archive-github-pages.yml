@@ -17,7 +17,7 @@ on:
       dry_run:
         type: boolean
         description: 'Print what would be done without actually doing it.'
-        default: false
+        default: true
         required: false
 
 jobs:
@@ -52,7 +52,7 @@ jobs:
 
       - name: Print a message if this is a dry run
         id: s4
-        if: ${{ github.workflow_dispatch.inputs.dry_run == 'false' }}
+        if: ${{ github.workflow_dispatch.inputs.dry_run == 'true' }}
         run: |
           echo "::notice::Sending ${{ env.pages_url }} to the Internet Archive"
 
