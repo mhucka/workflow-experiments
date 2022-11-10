@@ -52,9 +52,12 @@ jobs:
 
       - name: Print a message if this is a dry run
         id: s4
-        if: ${{ github.event.inputs.dry_run == 'true' }}
+        # if: ${{ github.event.inputs.dry_run == 'true' }}
         run: |
-          echo "::notice::Sending ${{ env.pages_url }} to the Internet Archive"
+          echo foo
+          echo ${{ github.event.inputs.dry_run }}
+          echo bar
+          # echo "::notice::Sending ${{ env.pages_url }} to the Internet Archive"
 
       - name: Summarize the results of the run
         id: s5
