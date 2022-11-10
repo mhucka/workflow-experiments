@@ -3,8 +3,8 @@
 # - provide way to override default event
 # - provide a way to control saveerrors, saveoutlinks, etc.
 
-name: "Waystation – Wayback site archiving automation"
-run-name: "Archive ${{ github.repository }}'s GitHub Pages in the Wayback Machine"
+name: "Waystation"
+run-name: "Archive GitHub Pages in the Wayback Machine"
 
 on:
   push:
@@ -39,15 +39,15 @@ jobs:
           script: |
             core.setFailed('Could not retrieve GitHub pages URL.')        
 
-      - name: Proceed if have a GitHub pages URL
-        id: s3
-        if: startsWith(env.pages_url, 'null') != true
-        uses: JamieMagee/wayback@v1.3.19
-        with:
-          url: ${{ env.pages_url }}
-          saveErrors: false
-          saveOutlinks: true
-          saveScreenshot: true
+      # - name: Proceed if have a GitHub pages URL
+      #   id: s3
+      #   if: startsWith(env.pages_url, 'null') != true
+      #   uses: JamieMagee/wayback@v1.3.19
+      #   with:
+      #     url: ${{ env.pages_url }}
+      #     saveErrors: false
+      #     saveOutlinks: true
+      #     saveScreenshot: true
 
       - name: Summarize the results of the run
         id: s4
