@@ -4,7 +4,7 @@
 # - provide a way to control saveerrors, saveoutlinks, etc.
 
 name: "Waystation"
-run-name: "Archive GitHub Pages in the Wayback Machine"
+run-name: "Archive GitHub Pages for ${{ github.repository }}"
 
 on:
   push:
