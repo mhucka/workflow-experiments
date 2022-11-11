@@ -48,7 +48,7 @@ jobs:
         # have double quotes around it.
         id: s1
         run: |
-          echo pages_url=$(curl -s -H 'Accept: application/vnd.github+json' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/caltechlibrary/foliage/pages | jq '.html_url' | tr -d '"') >> $GITHUB_ENV
+          echo pages_url=$(curl -s -H 'Accept: application/vnd.github+json' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/caltechlibrary/dibs/pages | jq '.html_url' | tr -d '"') >> $GITHUB_ENV
 
       - name: Quit if GitHub pages URL is null
         id: s2
