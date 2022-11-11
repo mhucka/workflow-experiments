@@ -3,7 +3,7 @@ on:
   push:
 
 jobs:
-  workflow:
+  Workflow:
     uses: ./.github/workflows/waystation.yml
     with:
       dry_run: true
