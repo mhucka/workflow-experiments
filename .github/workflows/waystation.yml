@@ -60,7 +60,7 @@ jobs:
           echo "save_screenshots = ${{ inputs.save_screenshots }}"
           echo "debug = ${{ inputs.debug }}"
           echo "====================="
-          echo "${{ github }}"
+          : ${{ toJSON(github) }}
 
       - name: Quit if GitHub pages URL is null.
         id: s3
