@@ -67,7 +67,7 @@ jobs:
 
       - name: Print a message if this is only a dry run
         id: s5
-        if: ${{ inputs.dry_run == 'true' }}
+        if: ${{ inputs.dry_run == true }}
         run: |
           echo "::notice::Sending ${{ env.pages_url }} to the Internet Archive"
 
