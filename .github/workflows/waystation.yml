@@ -52,7 +52,7 @@ jobs:
 
       - name: Quit if GitHub pages URL is null
         id: s2
-        if: startsWith(env.pages_url, 'null')
+        if: startsWith(env.pages_url, 'null') && ${{ inputs.dry_run != true }} && ${{ inputs.dry_run != 'true' }}
         uses: actions/github-script@v6.3.3
         with:
           script: |
