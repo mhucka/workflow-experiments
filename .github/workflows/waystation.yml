@@ -45,12 +45,12 @@ jobs:
       - name: Print input parameters
         id: s1
         run: |
+          echo not_dry_run="not" >> $GITHUB_ENV
           : dry_run=${{ inputs.dry_run }}
           : save_errors=${{ inputs.save_errors }}
           : save_outlinks=${{ inputs.save_outlinks }}
           : save_screenshots=${{ inputs.save_screenshots }}
           : debug=${{ inputs.debug }}
-          echo not_dry_run="not" >> $GITHUB_ENV
 
       - name: Get GitHub pages URL
         # This stores the URL in env.PAGES_URL. The value will be "null" if
@@ -101,5 +101,6 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: |
-          echo $GITHUB_CONTEXT
-          echo $GITHUB_ENV
+          echo "$GITHUB_CONTEXT"
+          echo "====================="
+          echo "$GITHUB_ENV"
