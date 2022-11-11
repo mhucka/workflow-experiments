@@ -2,7 +2,7 @@ on:
   push:
 
 jobs:
-  archive_github_pages:
+  waystation_workflow:
     uses: ./.github/workflows/waystation.yml
     with:
       dry_run: true
