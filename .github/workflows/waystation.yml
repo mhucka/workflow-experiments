@@ -72,7 +72,9 @@ jobs:
         id: s6
         if: ${{ inputs.dry_run == true }} || ${{ inputs.dry_run == 'true' }}
         run: |
-          echo "::notice::Sending ${{ env.pages_url }} to the Internet Archive"
+          echo "::notice::${{ env.pages_url }} would have been sent to"
+          echo "::notice::the Internet Archive's Wayback Machine if the"
+          echo "::notice::input parameter 'dry_run' had not been not true."
 
       - name: Summarize the results of the run
         id: s7
