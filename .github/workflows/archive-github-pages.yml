@@ -1,6 +1,5 @@
 # Still to do
 # - provide option for branch
-# - provide a dry-run option
 # - provide way to override default event
 # - provide a way to control saveerrors, saveoutlinks, etc.
 
@@ -18,6 +17,21 @@ on:
         type: boolean
         description: 'Print what would be done without actually doing it.'
         default: true
+        required: false
+      save_errors:
+        type: boolean
+        description: ''
+        default: false
+        required: false
+      save_outlinks:
+        type: boolean
+        description: ''
+        default: false
+        required: false
+      save_screenshots:
+        type: boolean
+        description: ''
+        default: false
         required: false
 
 jobs:
@@ -64,3 +78,8 @@ jobs:
           echo GitHub repository for this action: \`${{ github.repository }}\` >> $GITHUB_STEP_SUMMARY
           echo GitHub Pages URL for the repository: ${{ env.pages_url }}       >> $GITHUB_STEP_SUMMARY
           echo URL in the Wayback Machine: ${{ steps.s3.outputs.wayback_url }} >> $GITHUB_STEP_SUMMARY
+
+      - name: Dump GitHub context if debugging is on
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
