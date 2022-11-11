@@ -68,22 +68,22 @@ jobs:
           script: |
             core.setFailed('Could not retrieve GitHub pages URL.')        
 
-      # - name: Proceed if this is not a dry run
-      #   id: s4
-      #   if: startsWith(env.pages_url, 'null') != true
-      #   uses: JamieMagee/wayback@v1.3.19
-      #   with:
-      #     url: ${{ env.pages_url }}
-      #     saveErrors: ${{ env.save_errors }}
-      #     saveOutlinks: ${{ env.save_outlinks }}
-      #     saveScreenshot: ${{ env.save_screenshots }}
+      - name: Proceed if this is not a dry run
+        id: s4
+        if: startsWith(env.pages_url, 'null') != true && ${{ inputs.dry_run != true }} && ${{ inputs.dry_run != 'true' }}
+        uses: JamieMagee/wayback@v1.3.19
+        with:
+          url: ${{ env.pages_url }}
+          saveErrors: ${{ env.save_errors }}
+          saveOutlinks: ${{ env.save_outlinks }}
+          saveScreenshot: ${{ env.save_screenshots }}
 
-      - name: Print a message if this is only a dry run
-        id: s5
-        if: ${{ inputs.dry_run == true }} || ${{ inputs.dry_run == 'true' }}
-        run: |
-          echo not_dry_run="" >> $GITHUB_ENV
-          echo "::notice::The URL ${{ env.pages_url }} would have been sent to the Internet Archive if the input parameter 'dry_run' had not been not set for this workflow run."
+      # - name: Print a message if this is only a dry run
+      #   id: s5
+      #   if: 
+      #   run: |
+      #     echo not_dry_run="" >> $GITHUB_ENV
+      #     echo "::notice::The URL ${{ env.pages_url }} would have been sent to the Internet Archive if the input parameter 'dry_run' had not been not set for this workflow run."
 
       - name: Summarize the results of the run
         id: s7
