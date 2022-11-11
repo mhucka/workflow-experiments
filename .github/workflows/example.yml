@@ -1,3 +1,4 @@
+name: Run Waystation
 on:
   push:
 
