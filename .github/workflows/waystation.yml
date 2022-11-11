@@ -68,15 +68,15 @@ jobs:
           script: |
             core.setFailed('Could not retrieve GitHub pages URL.')        
 
-      # - name: Proceed if this is not a dry run
-      #   id: s4
-      #   if: startsWith(env.pages_url, 'null') != true
-      #   uses: JamieMagee/wayback@v1.3.19
-      #   with:
-      #     url: ${{ env.pages_url }}
-      #     saveErrors: ${{ env.save_errors }}
-      #     saveOutlinks: ${{ env.save_outlinks }}
-      #     saveScreenshot: ${{ env.save_screenshots }}
+      - name: Proceed if this is not a dry run
+        id: s4
+        if: startsWith(env.pages_url, 'null') != true
+        uses: JamieMagee/wayback@v1.3.19
+        with:
+          url: ${{ env.pages_url }}
+          # saveErrors: ${{ env.save_errors }}
+          # saveOutlinks: ${{ env.save_outlinks }}
+          # saveScreenshot: ${{ env.save_screenshots }}
 
       - name: Print a message if this is only a dry run
         id: s5
@@ -90,7 +90,7 @@ jobs:
         run: |
           echo \#\# Results of sending the GitHub Pages to the Wayback Machine >> $GITHUB_STEP_SUMMARY
           echo Date and time of execution: $(date "+%F %T (%Z)")               >> $GITHUB_STEP_SUMMARY
-          echo This was${{ env.not_dry_run }} a dry run                        >> $GITHUB_STEP_SUMMARY
+          echo This was${{ env.not_dry_run }} a dry run.                       >> $GITHUB_STEP_SUMMARY
           echo GitHub repository for this action: \`${{ github.repository }}\` >> $GITHUB_STEP_SUMMARY
           echo GitHub Pages URL for the repository: ${{ env.pages_url }}       >> $GITHUB_STEP_SUMMARY
           echo URL in the Wayback Machine: ${{ steps.s4.outputs.wayback_url }} >> $GITHUB_STEP_SUMMARY
