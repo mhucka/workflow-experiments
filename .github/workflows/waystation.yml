@@ -42,6 +42,21 @@ jobs:
   Actions:
     runs-on: ubuntu-latest
     steps:
+      - name: Dump GitHub context and environment if debugging is on
+        id: s0
+        if: ${{ inputs.debug == true }} || ${{ inputs.debug == 'true' }}
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: |
+          echo not_dry_run="not" >> $GITHUB_ENV
+          : dry_run=${{ inputs.dry_run }}
+          : save_errors=${{ inputs.save_errors }}
+          : save_outlinks=${{ inputs.save_outlinks }}
+          : save_screenshots=${{ inputs.save_screenshots }}
+          : debug=${{ inputs.debug }}
+          echo "====================="
+          echo "$GITHUB_CONTEXT"
+
       - name: Get GitHub pages URL
         # This stores the URL in env.PAGES_URL. The value will be "null" if
         # no pages URL is returned for any reason. Note: the URL string will
@@ -77,18 +92,3 @@ jobs:
           echo GitHub repository for this action: \`${{ github.repository }}\` >> $GITHUB_STEP_SUMMARY
           echo GitHub Pages URL for the repository: ${{ env.pages_url }}       >> $GITHUB_STEP_SUMMARY
           echo URL in the Wayback Machine: ${{ steps.s3.outputs.wayback_url }} >> $GITHUB_STEP_SUMMARY
-
-      - name: Dump GitHub context and environment if debugging is on
-        id: s6
-        if: ${{ inputs.debug == true }} || ${{ inputs.debug == 'true' }}
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
-        run: |
-          echo not_dry_run="not" >> $GITHUB_ENV
-          : dry_run=${{ inputs.dry_run }}
-          : save_errors=${{ inputs.save_errors }}
-          : save_outlinks=${{ inputs.save_outlinks }}
-          : save_screenshots=${{ inputs.save_screenshots }}
-          : debug=${{ inputs.debug }}
-          echo "====================="
-          echo "$GITHUB_CONTEXT"
