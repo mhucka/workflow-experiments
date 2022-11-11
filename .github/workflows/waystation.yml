@@ -52,6 +52,11 @@ jobs:
       - name: Dump GitHub Actions context and variables if debugging is on.
         id: s2
         if: inputs.debug == true || inputs.debug == 'true'
+        env:
+          # Setting this variable and then printing it below is not strictly
+          # necessary; you could put the expression directly into the echo
+          # command below. But when I do that, I get a doubling of the output.
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: |
           echo "dry_run = ${{ inputs.dry_run }}"
           echo "pages_url = ${{ env.pages_url }}"
@@ -60,7 +65,7 @@ jobs:
           echo "save_screenshots = ${{ inputs.save_screenshots }}"
           echo "debug = ${{ inputs.debug }}"
           echo "====================="
-          : ${{ toJSON(github) }}
+          echo "$GITHUB_CONTEXT"
 
       - name: Quit if GitHub pages URL is null.
         id: s3
