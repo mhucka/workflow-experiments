@@ -67,23 +67,23 @@ jobs:
           echo "====================="
           echo "$GITHUB_CONTEXT"
 
-      - name: Quit if GitHub pages URL is null.
-        id: s3
-        if: startsWith(env.pages_url, 'null') == true
-        uses: actions/github-script@v6.3.3
-        with:
-          script: |
-            core.setFailed("Could not retrieve GitHub Pages URL for repository ${{ github.repository }}.")
+      # - name: Quit if GitHub pages URL is null.
+      #   id: s3
+      #   if: startsWith(env.pages_url, 'null') == true
+      #   uses: actions/github-script@v6.3.3
+      #   with:
+      #     script: |
+      #       core.setFailed("Could not retrieve GitHub Pages URL for repository ${{ github.repository }}.")
 
-      - name: Proceed if this is not a dry run.
-        id: s4
-        if: startsWith(env.pages_url, 'null') != true && inputs.dry_run != true && inputs.dry_run != 'true'
-        uses: JamieMagee/wayback@v1.3.19
-        with:
-          url: ${{ env.pages_url }}
-          # saveErrors: ${{ env.save_errors }}
-          # saveOutlinks: ${{ env.save_outlinks }}
-          # saveScreenshot: ${{ env.save_screenshots }}
+      # - name: Proceed if this is not a dry run.
+      #   id: s4
+      #   if: startsWith(env.pages_url, 'null') != true && inputs.dry_run != true && inputs.dry_run != 'true'
+      #   uses: JamieMagee/wayback@v1.3.19
+      #   with:
+      #     url: ${{ env.pages_url }}
+      #     # saveErrors: ${{ env.save_errors }}
+      #     # saveOutlinks: ${{ env.save_outlinks }}
+      #     # saveScreenshot: ${{ env.save_screenshots }}
 
       - name: Summarize the results of the run.
         id: s5
