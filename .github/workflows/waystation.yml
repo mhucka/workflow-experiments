@@ -95,9 +95,11 @@ jobs:
           echo GitHub Pages URL for the repository: ${{ env.pages_url }}       >> $GITHUB_STEP_SUMMARY
           echo URL in the Wayback Machine: ${{ steps.s4.outputs.wayback_url }} >> $GITHUB_STEP_SUMMARY
 
-      - name: Dump GitHub context if debugging is on
+      - name: Dump GitHub context and environment if debugging is on
         id: s8
         if: ${{ inputs.debug == true }} || ${{ inputs.debug == 'true' }}
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
-        run: echo "$GITHUB_CONTEXT"
+        run: |
+          echo $GITHUB_CONTEXT
+          echo $GITHUB_ENV
