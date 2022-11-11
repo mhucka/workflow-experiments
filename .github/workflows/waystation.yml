@@ -42,11 +42,17 @@ jobs:
   Actions:
     runs-on: ubuntu-latest
     steps:
+      - name: Get GitHub pages URL
+        # This stores the URL in env.PAGES_URL. The value will be "null" if
+        # no pages URL is returned for any reason. Note: the URL string will
+        # have double quotes around it.
+        id: s1
+        run: |
+          echo pages_url=$(curl -s -H 'Accept: application/vnd.github+json' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/pages | jq '.html_url' | tr -d '"') >> $GITHUB_ENV
+
       - name: Dump GitHub context and environment if debugging is on
-        id: s0
+        id: s2
         if: ${{ inputs.debug == true }} || ${{ inputs.debug == 'true' }}
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: |
           echo not_dry_run="not" >> $GITHUB_ENV
           : dry_run=${{ inputs.dry_run }}
@@ -57,16 +63,8 @@ jobs:
           echo "====================="
           echo "$GITHUB_CONTEXT"
 
-      - name: Get GitHub pages URL
-        # This stores the URL in env.PAGES_URL. The value will be "null" if
-        # no pages URL is returned for any reason. Note: the URL string will
-        # have double quotes around it.
-        id: s1
-        run: |
-          echo pages_url=$(curl -s -H 'Accept: application/vnd.github+json' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/pages | jq '.html_url' | tr -d '"') >> $GITHUB_ENV
-
       - name: Quit if GitHub pages URL is null
-        id: s2
+        id: s3
         if: startsWith(env.pages_url, 'null') && ${{ inputs.dry_run != true }} && ${{ inputs.dry_run != 'true' }}
         uses: actions/github-script@v6.3.3
         with:
@@ -74,7 +72,7 @@ jobs:
             core.setFailed("Could not retrieve GitHub pages URL for repository ${{ github.repository }}.")
 
       - name: Proceed if this is not a dry run
-        id: s3
+        id: s4
         if: startsWith(env.pages_url, 'null') != true && ${{ inputs.dry_run != true }} && ${{ inputs.dry_run != 'true' }}
         uses: JamieMagee/wayback@v1.3.19
         with:
@@ -91,4 +89,4 @@ jobs:
           echo This was ${{ env.not_dry_run }} a dry run.                      >> $GITHUB_STEP_SUMMARY
           echo GitHub repository for this action: \`${{ github.repository }}\` >> $GITHUB_STEP_SUMMARY
           echo GitHub Pages URL for the repository: ${{ env.pages_url }}       >> $GITHUB_STEP_SUMMARY
-          echo URL in the Wayback Machine: ${{ steps.s3.outputs.wayback_url }} >> $GITHUB_STEP_SUMMARY
+          echo URL in the Wayback Machine: ${{ steps.s4.outputs.wayback_url }} >> $GITHUB_STEP_SUMMARY
