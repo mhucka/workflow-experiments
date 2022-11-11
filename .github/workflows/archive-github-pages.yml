@@ -7,11 +7,7 @@ name: "Waystation"
 run-name: "Archive GitHub Pages for ${{ github.repository }}"
 
 on:
-  push:
-    branches:
-      - main
-
-  workflow_dispatch:
+  workflow_call:
     inputs:
       dry_run:
         type: boolean
