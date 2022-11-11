@@ -57,6 +57,7 @@ jobs:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: |
           echo "dry_run = ${{ inputs.dry_run }}"
+          echo "pages_url = ${{ env.pages_url }}"
           echo "save_errors = ${{ inputs.save_errors }}"
           echo "save_outlinks = ${{ inputs.save_outlinks }}"
           echo "save_screenshots = ${{ inputs.save_screenshots }}"
