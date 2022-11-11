@@ -81,6 +81,9 @@ jobs:
         uses: JamieMagee/wayback@v1.3.19
         with:
           url: ${{ env.pages_url }}
+          saveErrors: ${{ env.save_errors }}
+          saveOutlinks: ${{ env.save_outlinks }}
+          saveScreenshot: ${{ env.save_screenshots }}
 
       - name: Summarize the results of the run.
         id: s5
