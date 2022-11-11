@@ -8,3 +8,4 @@ jobs:
     with:
       dry_run: false
       debug: false
+      save_screenshot: true
