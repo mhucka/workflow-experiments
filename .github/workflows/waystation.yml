@@ -38,11 +38,11 @@ jobs:
         id: s1
         run: |
           text=$(cat << EOF
-          Input parameters to this workflow: \n
-          dry_run = ${{ inputs.dry_run }} \n
-          save_errors = ${{ inputs.save_errors }} \n
-          save_outlinks = ${{ inputs.save_outlinks }} \n
-          save_screenshots = ${{ inputs.save_screenshots }} \n
+          Input parameters to this workflow: \\n
+          dry_run = ${{ inputs.dry_run }} \\n
+          save_errors = ${{ inputs.save_errors }} \\n
+          save_outlinks = ${{ inputs.save_outlinks }} \\n
+          save_screenshots = ${{ inputs.save_screenshots }} \\n
           EOF
           )
           echo $text
