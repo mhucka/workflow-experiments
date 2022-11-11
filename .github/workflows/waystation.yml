@@ -54,14 +54,13 @@ jobs:
         id: s2
         if: ${{ inputs.debug == true }} || ${{ inputs.debug == 'true' }}
         run: |
-          echo not_dry_run="not" >> $GITHUB_ENV
-          : dry_run=${{ inputs.dry_run }}
-          : save_errors=${{ inputs.save_errors }}
-          : save_outlinks=${{ inputs.save_outlinks }}
-          : save_screenshots=${{ inputs.save_screenshots }}
-          : debug=${{ inputs.debug }}
+          echo "dry_run = ${{ inputs.dry_run }}"
+          echo "save_errors = ${{ inputs.save_errors }}"
+          echo "save_outlinks = ${{ inputs.save_outlinks }}"
+          echo "save_screenshots = ${{ inputs.save_screenshots }}"
+          echo "debug = ${{ inputs.debug }}"
           echo "====================="
-          echo "$GITHUB_CONTEXT"
+          echo "${{ toJSON(github) }}"
 
       - name: Quit if GitHub pages URL is null
         id: s3
