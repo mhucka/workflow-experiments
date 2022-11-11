@@ -1,7 +1,10 @@
-# Still to do
-# - provide option for branch
-# - provide way to override default event
-# - provide a way to control saveerrors, saveoutlinks, etc.
+# =============================================================================
+# @file    waystation.yml
+# @brief   GitHub Actions workflow for archiving a project's GitHub Pages URL
+# @author  Michael Hucka <mhucka@caltech.edu>
+# @license Please see the file named LICENSE in the repository
+# @repo    https://github.com/caltechlibrary/waystation
+# =============================================================================
 
 name: "Waystation"
 run-name: "Archive GitHub Pages for ${{ github.repository }}"
@@ -26,6 +29,11 @@ on:
         required: false
       save_screenshots:
         description: ''
+        type: boolean
+        default: false
+        required: false
+      debug:
+        description: 'Dump GitHub Actions context data.'
         type: boolean
         default: false
         required: false
@@ -58,15 +66,15 @@ jobs:
           script: |
             core.setFailed('Could not retrieve GitHub pages URL.')        
 
-      # - name: Proceed if this is not a dry run
-      #   id: s5
-      #   if: startsWith(env.pages_url, 'null') != true
-      #   uses: JamieMagee/wayback@v1.3.19
-      #   with:
-      #     url: ${{ env.pages_url }}
-      #     saveErrors: false
-      #     saveOutlinks: true
-      #     saveScreenshot: true
+      - name: Proceed if this is not a dry run
+        id: s5
+        if: startsWith(env.pages_url, 'null') != true
+        uses: JamieMagee/wayback@v1.3.19
+        with:
+          url: ${{ env.pages_url }}
+          saveErrors: ${{ env.save_errors }}
+          saveOutlinks: ${{ env.save_outlinks }}
+          saveScreenshot: ${{ env.save_screenshots }}
 
       - name: Print a message if this is only a dry run
         id: s6
@@ -84,6 +92,8 @@ jobs:
           echo URL in the Wayback Machine: ${{ steps.s5.outputs.wayback_url }} >> $GITHUB_STEP_SUMMARY
 
       - name: Dump GitHub context if debugging is on
+        id: s8
+        if: ${{ inputs.debug == true }} || ${{ inputs.debug == 'true' }}
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: echo "$GITHUB_CONTEXT"
