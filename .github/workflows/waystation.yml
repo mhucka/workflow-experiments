@@ -82,7 +82,6 @@ jobs:
         with:
           url: ${{ env.pages_url }}
           saveErrors: ${{ env.save_errors }}
-          saveOutlinks: ${{ env.save_outlinks }}
           saveScreenshot: ${{ env.save_screenshots }}
 
       - name: Summarize the results of the run.
