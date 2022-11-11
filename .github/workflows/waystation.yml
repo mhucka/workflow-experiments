@@ -53,6 +53,8 @@ jobs:
       - name: Dump GitHub context and environment if debugging is on
         id: s2
         if: ${{ inputs.debug == true }} || ${{ inputs.debug == 'true' }}
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: |
           echo "dry_run = ${{ inputs.dry_run }}"
           echo "save_errors = ${{ inputs.save_errors }}"
@@ -60,7 +62,7 @@ jobs:
           echo "save_screenshots = ${{ inputs.save_screenshots }}"
           echo "debug = ${{ inputs.debug }}"
           echo "====================="
-          echo "${{ toJSON(github) }}"
+          echo "$GITHUB_CONTEXT"
 
       - name: Quit if GitHub pages URL is null
         id: s3
