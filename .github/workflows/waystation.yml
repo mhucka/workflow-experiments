@@ -42,12 +42,12 @@ jobs:
   Actions:
     runs-on: ubuntu-latest
     steps:
-      - name: Get GitHub pages URL.
+      - name: Get GitHub Pages URL.
         # This stores the URL in env.pages_url. The value will be "null" if
         # no pages URL is returned for any reason.
         id: s1
         run: |
-          echo pages_url=$(curl -s -H 'Accept: application/vnd.github+json' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/caltechlibrary/handprint/pages | jq '.html_url' | tr -d '"') >> $GITHUB_ENV
+          echo pages_url=$(curl -s -H 'Accept: application/vnd.github+json' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/caltechlibrary/dibs/pages | jq '.html_url' | tr -d '"') >> $GITHUB_ENV
 
       - name: Dump GitHub Actions context and variables if debugging is on.
         id: s2
@@ -67,7 +67,7 @@ jobs:
           echo "====================="
           echo "$GITHUB_CONTEXT"
 
-      - name: Quit if GitHub pages URL is null.
+      - name: Quit if GitHub Pages URL is null.
         id: s3
         if: startsWith(env.pages_url, 'null') == true
         uses: actions/github-script@v6.3.3
@@ -81,7 +81,7 @@ jobs:
         uses: JamieMagee/wayback@v1.3.19
         with:
           url: ${{ env.pages_url }}
-          # saveErrors: ${{ env.save_errors }}
+          saveErrors: ${{ env.save_errors }}
           # saveOutlinks: ${{ env.save_outlinks }}
           # saveScreenshot: ${{ env.save_screenshots }}
 
