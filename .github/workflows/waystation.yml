@@ -34,23 +34,13 @@ jobs:
   Actions:
     runs-on: ubuntu-latest
     steps:
-      - name: Gather input parameters
+      - name: Print input parameters
         id: s1
         run: |
-          text=$(cat << EOF
-          Input parameters to this workflow:
           dry_run = ${{ inputs.dry_run }}
           save_errors = ${{ inputs.save_errors }}
           save_outlinks = ${{ inputs.save_outlinks }}
           save_screenshots = ${{ inputs.save_screenshots }}
-          EOF
-          )
-          echo "::set-output name=content::$text"
-
-      - name: Print input parameters
-        id: s2
-        run: |
-          echo ${{ steps.s1.text.outputs.content }}
 
       - name: Get GitHub pages URL
         # This stores the URL in env.PAGES_URL. The value will be "null" if
