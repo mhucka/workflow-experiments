@@ -37,10 +37,10 @@ jobs:
       - name: Print input parameters
         id: s1
         run: |
-          dry_run = ${{ inputs.dry_run }}
-          save_errors = ${{ inputs.save_errors }}
-          save_outlinks = ${{ inputs.save_outlinks }}
-          save_screenshots = ${{ inputs.save_screenshots }}
+          : dry_run=${{ inputs.dry_run }}
+          : save_errors=${{ inputs.save_errors }}
+          : save_outlinks=${{ inputs.save_outlinks }}
+          : save_screenshots=${{ inputs.save_screenshots }}
 
       - name: Get GitHub pages URL
         # This stores the URL in env.PAGES_URL. The value will be "null" if
