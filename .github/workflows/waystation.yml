@@ -73,7 +73,7 @@ jobs:
         uses: actions/github-script@v6.3.3
         with:
           script: |
-            core.setFailed("Could not retrieve GitHub Pages URL for repository ${{ github.repository }}.")
+            core.setFailed("Could not retrieve the GitHub Pages URL for repository ${{ github.repository }}.")
 
       - name: Proceed if this is not a dry run.
         id: s4
