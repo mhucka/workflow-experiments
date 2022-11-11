@@ -1,8 +1,9 @@
+name: Run Waystation
 on:
   push:
 
 jobs:
-  waystation_workflow:
+  workflow:
     uses: ./.github/workflows/waystation.yml
     with:
       dry_run: true
