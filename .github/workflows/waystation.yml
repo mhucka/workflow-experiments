@@ -14,28 +14,31 @@ on:
     inputs:
       dry_run:
         description: 'Print what would be done without actually doing it.'
-        type: boolean
         default: true
+        type: boolean
         required: false
       save_errors:
-        description: ''
-        type: boolean
+        # Corresponds to "saveErrors" in the Wayback Machine GitHub Action.
+        description: 'Whether the Wayback Machine should save pages that return HTTP status 4xx-5xx.'
         default: false
+        type: boolean
         required: false
       save_outlinks:
-        description: ''
+        # Corresponds to "saveOutlinks" in the Wayback Machine GitHub Action.
+        description: 'Whether the Wayback Machine should save links to external web pages.'
+        default: true
         type: boolean
-        default: false
         required: false
       save_screenshot:
-        description: ''
+        # Corresponds to "saveScreenshot" in the Wayback Machine GitHub Action.
+        description: 'Whether the Wayback Machine should save a screenshot of the front page.'
+        default: true
         type: boolean
-        default: false
         required: false
       debug:
-        description: 'Dump GitHub Actions context data.'
-        type: boolean
+        description: 'Print context and variables in the GitHub Actions log.'
         default: false
+        type: boolean
         required: false
 
 jobs:
@@ -47,7 +50,7 @@ jobs:
         # no pages URL is returned for any reason.
         id: s1
         run: |
-          echo pages_url=$(curl -s -H 'Accept: application/vnd.github+json' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/caltechlibrary/dibs/pages | jq '.html_url' | tr -d '"') >> $GITHUB_ENV
+          echo pages_url=$(curl -s -H 'Accept: application/vnd.github+json' -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/caltechlibrary/dataset/pages | jq '.html_url' | tr -d '"') >> $GITHUB_ENV
 
       - name: Dump GitHub Actions context and variables if debugging is on.
         id: s2

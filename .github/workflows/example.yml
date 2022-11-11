@@ -6,6 +6,4 @@ jobs:
   Workflow:
     uses: ./.github/workflows/waystation.yml
     with:
-      dry_run: false
-      debug: false
-      save_screenshot: true
+      dry_run: true
