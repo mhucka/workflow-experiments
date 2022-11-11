@@ -52,6 +52,7 @@ jobs:
 
       - name: Dump GitHub context and environment if debugging is on
         id: s2
+        if: inputs.debug == true || inputs.debug == 'true'
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: |
@@ -63,7 +64,6 @@ jobs:
           echo "debug = ${{ inputs.debug }}"
           echo "====================="
           echo "$GITHUB_CONTEXT"
-        if: ${{ inputs.debug == true }} || ${{ inputs.debug == 'true' }}
 
       - name: Quit if GitHub pages URL is null
         id: s3
