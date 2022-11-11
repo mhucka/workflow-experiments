@@ -3,6 +3,6 @@ on:
 
 jobs:
   archive_github_pages:
-    uses: ./.github/workflows/archive-github-pages.yml
+    uses: ./.github/workflows/waystation.yml
     with:
       dry_run: true
