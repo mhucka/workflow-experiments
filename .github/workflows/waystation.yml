@@ -27,7 +27,7 @@ on:
         type: boolean
         default: false
         required: false
-      save_screenshots:
+      save_screenshot:
         description: ''
         type: boolean
         default: false
@@ -82,6 +82,8 @@ jobs:
         with:
           url: ${{ env.pages_url }}
           saveErrors: ${{ inputs.save_errors }}
+          saveOutlinks: ${{ inputs.save_outlinks }}
+          saveScreenshot: ${{ inputs.save_screenshot }}
 
       - name: Summarize the results of the run.
         id: s5
