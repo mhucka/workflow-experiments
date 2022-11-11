@@ -67,7 +67,7 @@ jobs:
 
       - name: Quit if GitHub pages URL is null
         id: s3
-        if: startsWith(env.pages_url, 'null') && ${{ inputs.dry_run != true }} && ${{ inputs.dry_run != 'true' }}
+        if: startsWith(env.pages_url, 'null') == true && inputs.dry_run != true && inputs.dry_run != 'true'
         uses: actions/github-script@v6.3.3
         with:
           script: |
@@ -75,7 +75,7 @@ jobs:
 
       - name: Proceed if this is not a dry run
         id: s4
-        if: startsWith(env.pages_url, 'null') != true && ${{ inputs.dry_run != true }} && ${{ inputs.dry_run != 'true' }}
+        if: startsWith(env.pages_url, 'null') != true && inputs.dry_run != true && inputs.dry_run != 'true'
         uses: JamieMagee/wayback@v1.3.19
         with:
           url: ${{ env.pages_url }}
