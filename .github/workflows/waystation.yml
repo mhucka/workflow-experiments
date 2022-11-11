@@ -68,15 +68,15 @@ jobs:
           script: |
             core.setFailed('Could not retrieve GitHub pages URL.')        
 
-      - name: Proceed if this is not a dry run
-        id: s4
-        if: startsWith(env.pages_url, 'null') != true
-        uses: JamieMagee/wayback@v1.3.19
-        with:
-          url: ${{ env.pages_url }}
-          # saveErrors: ${{ env.save_errors }}
-          # saveOutlinks: ${{ env.save_outlinks }}
-          # saveScreenshot: ${{ env.save_screenshots }}
+      # - name: Proceed if this is not a dry run
+      #   id: s4
+      #   if: startsWith(env.pages_url, 'null') != true
+      #   uses: JamieMagee/wayback@v1.3.19
+      #   with:
+      #     url: ${{ env.pages_url }}
+      #     saveErrors: ${{ env.save_errors }}
+      #     saveOutlinks: ${{ env.save_outlinks }}
+      #     saveScreenshot: ${{ env.save_screenshots }}
 
       - name: Print a message if this is only a dry run
         id: s5
@@ -103,4 +103,4 @@ jobs:
         run: |
           echo "$GITHUB_CONTEXT"
           echo "====================="
-          echo "$GITHUB_ENV"
+          echo $GITHUB_ENV

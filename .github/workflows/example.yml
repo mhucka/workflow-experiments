@@ -6,5 +6,5 @@ jobs:
   Workflow:
     uses: ./.github/workflows/waystation.yml
     with:
-      dry_run: true
+      dry_run: false
       save_errors: true
