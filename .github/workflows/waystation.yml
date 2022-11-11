@@ -72,7 +72,7 @@ jobs:
         id: s6
         if: ${{ inputs.dry_run == true }} || ${{ inputs.dry_run == 'true' }}
         run: |
-          echo "::notice::The URL ${{ env.pages_url }} would have been sent to the Internet Archive if the input parameter 'dry_run' had not been not true for this workflow run."
+          echo "::notice::The URL ${{ env.pages_url }} would have been sent to the Internet Archive if the input parameter 'dry_run' had not been not set for this workflow run."
 
       - name: Summarize the results of the run
         id: s7
